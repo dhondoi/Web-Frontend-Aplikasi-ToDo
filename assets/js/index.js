@@ -141,5 +141,16 @@
             todoTarget.isCompleted = false;
             document.dispatchEvent(new Event(RENDER_EVENT));
         }
+
+        // get index todo list
+        function findTodoIndex(todoId) {
+            for (const index in todos) {
+                if (todos[index].id === todoId) {
+                    return index;
+                }
+            }
+
+            return -1;
+        }
     });
 })();
