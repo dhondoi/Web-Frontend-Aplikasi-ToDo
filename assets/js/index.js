@@ -38,8 +38,9 @@
             const todoObject = generateTodoObject(generatedID, textTodo, timestamp, false);
             todos.push(todoObject);
 
-            // create new event
+            // dispatch event
             document.dispatchEvent(new Event(RENDER_EVENT));
+            saveData();
         }
 
         function generateId() {
@@ -110,6 +111,7 @@
 
             todoTarget.isCompleted = true;
             document.dispatchEvent(new Event(RENDER_EVENT));
+            saveData();
         }
 
         // find todo item
@@ -130,6 +132,7 @@
 
             todos.splice(todoTarget, 1);
             document.dispatchEvent(new Event(RENDER_EVENT));
+            saveData();
         }
 
         // undo todo item as not complete
@@ -140,6 +143,7 @@
 
             todoTarget.isCompleted = false;
             document.dispatchEvent(new Event(RENDER_EVENT));
+            saveData();
         }
 
         // get index todo list
@@ -151,6 +155,15 @@
             }
 
             return -1;
+        }
+
+        // save data to web storage
+        function saveData() {
+            if (isStorageExist()) {
+                const parsed = JSON.stringify(todos);
+                localStorage.setItem(STORAGE_KEY, parsed);
+                document.dispatchEvent(new Event(SAVED_EVENT));
+            }
         }
     });
 })();
