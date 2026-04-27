@@ -94,5 +94,25 @@
 
             return container;
         }
+
+        // mark todo as completed
+        function addTaskToCompleted(todoId) {
+            const todoTarget = findTodo(todoId);
+
+            if (todoTarget == null) return;
+
+            todoTarget.isCompleted = true;
+            document.dispatchEvent(new Event(RENDER_EVENT));
+        }
+
+        // find todo item
+        function findTodo(todoId) {
+            for (const todoItem of todos) {
+                if (todoItem.id === todoId) {
+                    return todoItem;
+                }
+            }
+            return null;
+        }
     });
 })();
