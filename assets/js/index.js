@@ -3,6 +3,8 @@
         const submitForm = document.getElementById('form');
         const todos = [];
         const RENDER_EVENT = 'render-todo';
+        const SAVED_EVENT = 'saved-todo';
+        const STORAGE_KEY = 'TODO_APPS';
 
         submitForm.addEventListener('submit', function (event) {
             event.preventDefault();
@@ -26,6 +28,10 @@
                     completedTODOList.append(todoElement);
                 }
             }
+        });
+
+        document.addEventListener(SAVED_EVENT, function () {
+            console.log(localStorage.getItem(STORAGE_KEY));
         });
 
         function addTodo() {
@@ -164,6 +170,14 @@
                 localStorage.setItem(STORAGE_KEY, parsed);
                 document.dispatchEvent(new Event(SAVED_EVENT));
             }
+        }
+
+        function isStorageExist() /* boolean */ {
+            if (typeof (Storage) === undefined) {
+                alert('Browser kamu tidak mendukung local storage');
+                return false;
+            }
+            return true;
         }
     });
 })();
