@@ -6,6 +6,8 @@
         const SAVED_EVENT = 'saved-todo';
         const STORAGE_KEY = 'TODO_APPS';
 
+
+
         submitForm.addEventListener('submit', function (event) {
             event.preventDefault();
 
@@ -178,6 +180,26 @@
                 return false;
             }
             return true;
+        }
+
+        // load data from web storage
+        function loadDataFromStorage() {
+            const serializedData = localStorage.getItem(STORAGE_KEY);
+            let data = JSON.parse(serializedData);
+
+            if (data !== null) {
+                for (const todo of data) {
+                    todos.push(todo);
+                }
+            }
+
+            // console.log(todos);
+
+            document.dispatchEvent(new Event(RENDER_EVENT));
+        }
+
+        if (isStorageExist()) {
+            loadDataFromStorage();
         }
     });
 })();
