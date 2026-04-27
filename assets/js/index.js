@@ -1,11 +1,17 @@
 (() => {
     document.addEventListener('DOMContentLoaded', function () {
         const submitForm = document.getElementById('form');
+        const todos = [];
+        const RENDER_EVENT = 'render-todo';
 
         submitForm.addEventListener('submit', function (event) {
             event.preventDefault();
 
             addTodo();
+        });
+
+        document.addEventListener(RENDER_EVENT, function () {
+            console.log(todos);
         });
 
         function addTodo() {
